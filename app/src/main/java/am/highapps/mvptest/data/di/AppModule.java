@@ -6,15 +6,20 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 
-
 import javax.inject.Singleton;
 
 import am.highapps.mvptest.MVPApp;
 import am.highapps.mvptest.data.api.ApiFactory;
 import am.highapps.mvptest.data.api.MVPTestAPI;
+import am.highapps.mvptest.data.repository.MVPTestDataSource;
+import am.highapps.mvptest.data.repository.remote.MVPTestRemoteDataSource;
 import am.highapps.mvptest.util.NetworkUtil;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static am.highapps.mvptest.data.api.ApiFactory.Url.BASE_URL;
 
@@ -34,24 +39,19 @@ public class AppModule {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    @Singleton
-    @Provides
-    NetworkUtil provideNetworkUtil(Context context) {
-        return new NetworkUtil(context);
-    }
 
     @Singleton
     @Provides
-    MVPTestAPI provideGitHubService() {
-        return ApiFactory.getMVPtestService(BASE_URL);
+    MVPTestDataSource provideMvpTestRemoteDataSource(MVPTestAPI mvpTestAPI) {
+        return new MVPTestRemoteDataSource(mvpTestAPI);
     }
 
-//    @Singleton
-//    @Provides
-//    GitHubRemoteDataSource provideGitHubRemoteDataSource(GitHubAPI gitHubService) {
-//        return new GitHubRemoteDataSource(gitHubService);
-//    }
-//
+    @Provides
+    CompositeDisposable bindsLoginCompositeDisposable() {
+        return new CompositeDisposable();
+    }
+
+
 //    @Singleton
 //    @Provides
 //    GitHubLocalDataSource provideGitHubLocalDataSource() {
@@ -61,7 +61,7 @@ public class AppModule {
 //    @Singleton
 //    @Provides
 //    GitHubDataSource provideGitHubRepository(GitHubLocalDataSource gitHubLocalDataSource,
-//                                             GitHubRemoteDataSource gitHubRemoteDataSource) {
+//                                             MVPTestRemoteDataSource gitHubRemoteDataSource) {
 //        return new GitHubRepository(gitHubLocalDataSource, gitHubRemoteDataSource);
 //    }
 

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:id="@+id/cl_root"
+    tools:context=".ui.adapter.viewholder.TopicViewHolder">
+
+    <TextView
+        android:textColor="@color/colorBlack"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/airbnb_cereal_medium"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Muscles hurt in every part  of the body." />
+
+
+    <TextView
+        android:id="@+id/tv_created_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/airbnb_cereal_book"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:text="25 Nov 2018" />
+
+    <TextView
+        android:id="@+id/tv_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/airbnb_cereal_book"
+        android:textColor="@color/color_E5324A"
+        app:layout_constraintStart_toEndOf="@+id/tv_created_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:text="General Surgery" />
+
+    <ImageView
+        android:elevation="16dp"
+        android:id="@+id/iv_user"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_created_date" />
+
+    <TextView
+        android:textColor="@color/colorBlack"
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/airbnb_cereal_book"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_user"
+        app:layout_constraintStart_toEndOf="@+id/iv_user"
+        app:layout_constraintTop_toTopOf="@+id/iv_user"
+        tools:text="Anna Smith" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/airbnb_cereal_book"
+        android:lineSpacingExtra="2sp"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_user"
+        tools:text="    Hello. Please tell me what could be the problem. Hurt the muscles in every part, but not all. Examined by several surgeons. Did an MRI of the back, as I complain about the spine. They said that there is not a big protrusion in the size of 2 mm in the lumbar region and scarios in the thoracic region, but everything is absolutely normal and we can say that the back is perfect.\n\n What does all the surgeons say. He also consulted the surgeon who did the MRI, saying that the problem is hardly in the spine. One of the surgeons shared the information that there is no large muscle hypertonus, but not more. Some said the reason is mental disorder. Did an MRI of the head, said the norm. He was a psychologist and a" />
+
+    <TextView
+        android:id="@+id/tv_views_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/colorBlack"
+        android:drawableStart="@drawable/ic_eye"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/airbnb_cereal_book"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description"
+        tools:text="@string/votes_count_text" />
+
+
+    <TextView
+        android:id="@+id/tv_answers_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/ic_answers"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/airbnb_cereal_book"
+        app:layout_constraintStart_toEndOf="@+id/tv_views_count"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description"
+        tools:text="@string/answers_count" />
+
+    <TextView
+        android:id="@+id/tv_participants_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/ic_participants"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/airbnb_cereal_book"
+        app:layout_constraintStart_toEndOf="@+id/tv_answers_count"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description"
+        tools:text="7" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/shape_type_comment_btn"
+        android:drawableStart="@drawable/shape_type_comment_btn_cyrcle"
+        android:drawablePadding="16dp"
+        android:drawableTint="#ccc"
+        android:fontFamily="@font/airbnb_cereal_book"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Type your comment..."
+        android:textColor="@color/colorGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_views_count" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

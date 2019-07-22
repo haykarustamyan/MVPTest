@@ -11,21 +11,22 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
+import dagger.android.support.DaggerFragment;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public abstract class BaseFragment extends Fragment implements HasSupportFragmentInjector {
+public abstract class BaseFragment extends DaggerFragment  {
 
-    @Inject
-    DispatchingAndroidInjector<Fragment> mDispatchingAndroidInjector;
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return mDispatchingAndroidInjector;
-    }
+//    @Inject
+//    DispatchingAndroidInjector<Fragment> mDispatchingAndroidInjector;
+//
+//    @Override
+//    public AndroidInjector<Fragment> supportFragmentInjector() {
+//        return mDispatchingAndroidInjector;
+//    }
 
     @Override
     public void onAttach(Context context) {
-        AndroidSupportInjection.inject(this);
+//        AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
 

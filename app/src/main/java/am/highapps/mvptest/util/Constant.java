@@ -10,4 +10,22 @@ public class Constant {
         public static final String UNKNOWN_ERROR = "Unknown error";
     }
 
+    public static class Action {
+        public static final String ACTION_UPLOAD = "ACTION_UPLOAD";
+    }
+
+    public static class Argument {
+        public static final String ARGUMENT_DIALOG_TYPE = "ARGUMENT_DIALOG_TYPE";
+        public static final String ARGUMENT_TYPE_ID = "ARGUMENT_TYPE_ID";
+        public static final String ARGUMENT_POS = "ARGUMENT_POS";
+    }
+
+    public class Extra {
+        public static final String EXTRA_USER = "EXTRA_USER";
+    }
+
+    public class Pref {
+        public static final String PREF_USER_TOKEN = "PREF_USER_TOKEN";
+
+    }
 }
