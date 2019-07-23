@@ -43,7 +43,7 @@
         android:fontFamily="@font/airbnb_cereal_book"
         android:lineSpacingExtra="2sp"
         android:textColor="@color/colorBlack"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_user"
@@ -105,6 +105,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_reply"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_reply" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

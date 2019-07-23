@@ -43,8 +43,8 @@ public class SignInActivity extends BaseActivity implements SignInContract.SignI
 
     private void findViews() {
         progressBar = (ProgressBar) findViewById(R.id.progress);
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
+        username = (EditText) findViewById(R.id.et_id);
+        password = (EditText) findViewById(R.id.et_password);
         signInBtn = (Button) findViewById(R.id.btn_sign_in);
     }
 

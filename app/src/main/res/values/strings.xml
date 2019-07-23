@@ -11,4 +11,16 @@
     <string name="unwanted_commercial_content_or_spam">Unwanted commercial content or spam</string>
     <string name="hate_or_rude_speach">Hate or rude speach</string>
     <string name="other">Other...</string>
+    <string name="sign_in_prompt_text">Sign In</string>
+    <string name="welcome_text">Welcome to Astghik MC.\nPlease enter your ID and password.</string>
+    <string name="helpful_answer_text">Helpful answer</string>
+    <string name="reply_text">Reply</string>
+    <string name="report_test">Report</string>
+    <string name="choose_reason_text">Choose reason</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="report_text">Report</string>
+    <string name="write_report_reason_text">Write report reason...</string>
+    <string name="send_text">Send</string>
+    <string name="write_comment_text">Write comment</string>
+    <string name="type_your_comment_text">Type your comment...</string>
 </resources>

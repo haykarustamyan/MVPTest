@@ -11,13 +11,13 @@
         android:id="@+id/tv_helpful_answer"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:visibility="visible"
         android:layout_gravity="start"
         android:fontFamily="@font/airbnb_cereal_book"
         android:gravity="center|start"
-        android:text="Helpful answer"
+        android:text="@string/helpful_answer_text"
         android:textColor="@color/colorBlack"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="visible" />
 
     <View
         android:id="@+id/view_divider"
@@ -32,7 +32,7 @@
         android:layout_gravity="start"
         android:fontFamily="@font/airbnb_cereal_book"
         android:gravity="center|start"
-        android:text="Reply"
+        android:text="@string/reply_text"
         android:textColor="@color/colorBlack"
         android:textSize="16sp" />
 
@@ -48,7 +48,7 @@
         android:layout_gravity="start"
         android:fontFamily="@font/airbnb_cereal_book"
         android:gravity="center|start"
-        android:text="Report"
+        android:text="@string/report_test"
         android:textColor="@color/colorBlack"
         android:textSize="16sp" />
 </LinearLayout>

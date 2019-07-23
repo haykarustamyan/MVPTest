@@ -81,11 +81,11 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/airbnb_cereal_book"
         android:lineSpacingExtra="2sp"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_user"
-        tools:text="    Hello. Please tell me what could be the problem. Hurt the muscles in every part, but not all. Examined by several surgeons. Did an MRI of the back, as I complain about the spine. They said that there is not a big protrusion in the size of 2 mm in the lumbar region and scarios in the thoracic region, but everything is absolutely normal and we can say that the back is perfect.\n\n What does all the surgeons say. He also consulted the surgeon who did the MRI, saying that the problem is hardly in the spine. One of the surgeons shared the information that there is no large muscle hypertonus, but not more. Some said the reason is mental disorder. Did an MRI of the head, said the norm. He was a psychologist and a" />
+        tools:text="Hello. Please tell me what could be the problem. Hurt the muscles in every part, but not all. Examined by several surgeons. Did an MRI of the back, as I complain about the spine. They said that there is not a big protrusion in the size of 2 mm in the lumbar region and scarios in the thoracic region, but everything is absolutely normal and we can say that the back is perfect.\n\n What does all the surgeons say. He also consulted the surgeon who did the MRI, saying that the problem is hardly in the spine. One of the surgeons shared the information that there is no large muscle hypertonus, but not more. Some said the reason is mental disorder. Did an MRI of the head, said the norm. He was a psychologist and a" />
 
     <TextView
         android:id="@+id/tv_views_count"
@@ -138,12 +138,12 @@
         android:background="@drawable/shape_type_comment_btn"
         android:drawableStart="@drawable/shape_type_comment_btn_cyrcle"
         android:drawablePadding="16dp"
-        android:drawableTint="#ccc"
+        android:drawableTint="@color/colorGray"
         android:fontFamily="@font/airbnb_cereal_book"
         android:gravity="center_vertical"
         android:paddingStart="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Type your comment..."
+        android:text="@string/type_your_comment_text"
         android:textColor="@color/colorGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

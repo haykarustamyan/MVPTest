@@ -19,10 +19,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="100dp"
             android:fontFamily="@font/airbnb_cereal_medium"
-            android:text="Sign In"
+            android:text="@string/sign_in_prompt_text"
             android:textAllCaps="true"
-            android:textSize="27dp"
-            app:layout_constraintStart_toStartOf="@+id/username"
+            android:textSize="27sp"
+            app:layout_constraintStart_toStartOf="@+id/et_id"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -32,32 +32,31 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/airbnb_cereal_book"
-            android:text="Welcome to Astghik MC.\nPlease enter your ID and password."
-            app:layout_constraintStart_toStartOf="@+id/username"
+            android:text="@string/welcome_text"
+            app:layout_constraintStart_toStartOf="@+id/et_id"
             app:layout_constraintTop_toBottomOf="@+id/tv_sign_in_prompt" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/et_id"
             android:layout_width="280dp"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_sign_in_edit_text"
             android:gravity="center_vertical"
             android:hint="@string/user_id"
             android:paddingStart="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/password"
+            app:layout_constraintBottom_toTopOf="@+id/et_password"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_sign_in_prompt_small"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/et_password"
             android:layout_width="280dp"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/shape_sign_in_edit_text"
             android:gravity="center_vertical"
             android:hint="@string/password"
@@ -65,9 +64,8 @@
             android:paddingStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username" />
+            app:layout_constraintTop_toBottomOf="@+id/et_id" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_in"
@@ -82,7 +80,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
         <ProgressBar
             android:id="@+id/progress"

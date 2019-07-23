@@ -3,13 +3,11 @@ package am.highapps.mvptest.ui.adapter;
 public class Item {
 
     private int viewType;
-    private int commentPos;
-    private int replyPos;
+    private Object typeObject;
 
-    public Item(int viewType, int commentPos, int replyPos) {
+    public Item(int viewType, Object typeObject) {
         this.viewType = viewType;
-        this.commentPos = commentPos;
-        this.replyPos = replyPos;
+        this.typeObject = typeObject;
     }
 
     public int getViewType() {
@@ -20,19 +18,45 @@ public class Item {
         this.viewType = viewType;
     }
 
-    public int getCommentPos() {
-        return commentPos;
+    public Object getTypeObject() {
+        return typeObject;
     }
 
-    public void setCommentPos(int commentPos) {
-        this.commentPos = commentPos;
+    public void setTypeObject(Object typeObject) {
+        this.typeObject = typeObject;
     }
 
-    public int getReplyPos() {
-        return replyPos;
-    }
-
-    public void setReplyPos(int replyPos) {
-        this.replyPos = replyPos;
-    }
+    //    private int viewType;
+//    private int commentPos;
+//    private int replyPos;
+//
+//    public Item(int viewType, int commentPos, int replyPos) {
+//        this.viewType = viewType;
+//        this.commentPos = commentPos;
+//        this.replyPos = replyPos;
+//    }
+//
+//    public int getViewType() {
+//        return viewType;
+//    }
+//
+//    public void setViewType(int viewType) {
+//        this.viewType = viewType;
+//    }
+//
+//    public int getCommentPos() {
+//        return commentPos;
+//    }
+//
+//    public void setCommentPos(int commentPos) {
+//        this.commentPos = commentPos;
+//    }
+//
+//    public int getReplyPos() {
+//        return replyPos;
+//    }
+//
+//    public void setReplyPos(int replyPos) {
+//        this.replyPos = replyPos;
+//    }
 }

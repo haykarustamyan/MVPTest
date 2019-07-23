@@ -11,7 +11,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="16dp"
         android:orientation="horizontal">
 
@@ -21,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:fontFamily="@font/airbnb_cereal_book"
-            android:text="Choose reason"
+            android:text="@string/choose_reason_text"
             android:textColor="@color/colorBlack"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -29,16 +28,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
             android:id="@+id/tv_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:fontFamily="@font/airbnb_cereal_book"
-            android:text="Cancel"
-            android:textSize="16sp"
+            android:text="@string/cancel_text"
             android:textColor="@color/colorBlack"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,21 +48,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:fontFamily="@font/airbnb_cereal_book"
-            android:text="Report"
-            android:textSize="16sp"
+            android:text="@string/report_text"
             android:textColor="@color/color_E5324A"
+            android:textSize="16sp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <LinearLayout
         android:id="@+id/ll_wrapper"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_unwanted_commercial"
@@ -119,17 +116,15 @@
     </LinearLayout>
 
     <EditText
-        android:visibility="gone"
         android:id="@+id/et_report_text"
         android:layout_width="match_parent"
         android:layout_height="146dp"
-        android:textCursorDrawable="@null"
         android:background="@android:color/transparent"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:fontFamily="@font/airbnb_cereal_book"
         android:gravity="start|top"
-        android:hint="Write report reason..."
+        android:hint="@string/write_report_reason_text"
         android:inputType="textMultiLine"
         android:maxLength="220"
         android:padding="16dp"
@@ -138,13 +133,13 @@
         android:singleLine="false"
         android:textColor="@color/colorBlack"
         android:textColorHint="@color/colorGray"
-        android:textSize="18dp"
-        android:theme="@style/CreateNewOilActivityEditTextTheme"
+        android:textCursorDrawable="@null"
+        android:textSize="18sp"
+        android:theme="@style/EditTextTheme"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_close" />
-
 
 </LinearLayout>
