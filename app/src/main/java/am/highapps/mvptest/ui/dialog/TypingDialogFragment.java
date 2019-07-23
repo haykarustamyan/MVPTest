@@ -33,7 +33,6 @@ public class TypingDialogFragment extends DialogFragment implements View.OnClick
 
     private OnTypingDialogInteractionListener interactionListener;
 
-
     private EditText commentTextEt;
     private Button sendBtn;
     private ImageView closeBtn;
@@ -55,7 +54,6 @@ public class TypingDialogFragment extends DialogFragment implements View.OnClick
         frag.setArguments(args);
         return frag;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,20 +85,16 @@ public class TypingDialogFragment extends DialogFragment implements View.OnClick
 
     }
 
-
     private void findViews(View view) {
         commentTextEt = (EditText) view.findViewById(R.id.et_comment);
         sendBtn = (Button) view.findViewById(R.id.btn_send);
         closeBtn = (ImageView) view.findViewById(R.id.btn_close);
     }
 
-
     private void setListeners() {
         getDialog().setCanceledOnTouchOutside(false);
         commentTextEt.setOnEditorActionListener(this);
-
         commentTextEt.requestFocus();
-
         sendBtn.setOnClickListener(this);
         closeBtn.setOnClickListener(this);
     }
@@ -109,13 +103,7 @@ public class TypingDialogFragment extends DialogFragment implements View.OnClick
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (EditorInfo.IME_ACTION_DONE == actionId) {
-            ActivityUtil.closeKeyboard(getView(), getActivity());
-
-            if (interactionListener != null) {
-                interactionListener.onTypingDialogSendClick(commentTextEt.getText().toString(), dialogType, typeId, pos);
-            }
-
-            dismiss();
+            send(commentTextEt.getText().toString(), this.dialogType, this.typeId, this.pos);
             return true;
         }
         return false;
@@ -125,7 +113,7 @@ public class TypingDialogFragment extends DialogFragment implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_send:
-                send();
+                send(commentTextEt.getText().toString(), this.dialogType, this.typeId, this.pos);
                 break;
             case R.id.btn_close:
                 close();
@@ -134,10 +122,10 @@ public class TypingDialogFragment extends DialogFragment implements View.OnClick
         }
     }
 
-    private void send() {
+    private void send(String commentText, DialogType dialogType, int typeId, int pos) {
         ActivityUtil.closeKeyboard(getView(), getActivity());
         if (interactionListener != null) {
-            interactionListener.onTypingDialogSendClick(commentTextEt.getText().toString(), dialogType, typeId, pos);
+            interactionListener.onTypingDialogSendClick(commentText, dialogType, typeId, pos);
         }
         dismiss();
     }
@@ -146,7 +134,6 @@ public class TypingDialogFragment extends DialogFragment implements View.OnClick
         ActivityUtil.closeKeyboard(getView(), getActivity());
         dismiss();
     }
-
 
     public void onResume() {
         super.onResume();

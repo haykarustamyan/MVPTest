@@ -22,7 +22,7 @@ import am.highapps.mvptest.data.entity.topic.TopicData;
 import am.highapps.mvptest.ui.adapter.RecyclerAdapter;
 import am.highapps.mvptest.ui.dialog.TypingDialogFragment;
 
-public class TopicViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
+public class TopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public ConstraintLayout container;
     private TextView titleTv;
@@ -79,7 +79,7 @@ public class TopicViewHolder extends RecyclerView.ViewHolder  implements View.On
 
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
-        SimpleDateFormat myFormat = new SimpleDateFormat("dd MMMM yyyy",Locale.ENGLISH);
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
 
 
         String reformattedDate = null;
@@ -101,9 +101,9 @@ public class TopicViewHolder extends RecyclerView.ViewHolder  implements View.On
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_type:
-                if(onTypeCommentClickListener!=null){
+                if (onTypeCommentClickListener != null) {
                     onTypeCommentClickListener.onStartTypeClick(TypingDialogFragment.DialogType.TOPIC_COMMENT);
                 }
                 break;

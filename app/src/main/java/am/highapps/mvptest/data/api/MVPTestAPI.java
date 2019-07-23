@@ -5,15 +5,19 @@ import am.highapps.mvptest.data.entity.comment.CommentRequestBody;
 import am.highapps.mvptest.data.entity.comment.CommentsResponseEntity;
 import am.highapps.mvptest.data.entity.comment.MakeCommentHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.comment.MakeReplyHelpfulResponseEntity;
+import am.highapps.mvptest.data.entity.comment.RemoveCommentHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.reply.AddReplyResponseEntity;
 import am.highapps.mvptest.data.entity.reply.AddReplyRequestBody;
 import am.highapps.mvptest.data.entity.reply.AddReportResponseEntity;
+import am.highapps.mvptest.data.entity.reply.RemoveReplyHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.report.AddReportRequestBody;
 import am.highapps.mvptest.data.entity.signin.SignInResponseEntity;
 import am.highapps.mvptest.data.entity.signin.UserRequestBody;
 import am.highapps.mvptest.data.entity.topic.TopicResponseEntity;
+import am.highapps.mvptest.data.entity.user.UserDetailsResponseEntity;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -24,6 +28,9 @@ public interface MVPTestAPI {
 
     @POST(ApiFactory.Url.SIGN_IN)
     Observable<SignInResponseEntity> signIn(@Body UserRequestBody userRequestBody);
+
+    @POST(ApiFactory.Url.GET_USER_DETAILS)
+    Observable<UserDetailsResponseEntity> getUserDetails(@Body UserRequestBody userRequestBody);
 
     @Headers("LanguageCode: en")
     @GET(ApiFactory.Url.GET_TOPIC_BY_ID)
@@ -53,4 +60,10 @@ public interface MVPTestAPI {
     @Headers("LanguageCode: en")
     @POST(ApiFactory.Url.ADD_REPORT)
     Observable<AddReportResponseEntity> addReport(@Body AddReportRequestBody addReportRequestBody);
+
+    @DELETE(ApiFactory.Url.REMOVE_COMMENT_HELPFUL)
+    Observable<RemoveCommentHelpfulResponseEntity> removeCommentHelpful(@Query("commentId") int commentId);
+
+    @DELETE(ApiFactory.Url.REMOVE_REPLY_HELPFUL)
+    Observable<RemoveReplyHelpfulResponseEntity> removeReplyHelpful(@Query("replyId") int replyId);
 }

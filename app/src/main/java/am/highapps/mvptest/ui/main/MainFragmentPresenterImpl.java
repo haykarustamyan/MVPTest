@@ -12,7 +12,6 @@ import am.highapps.mvptest.data.entity.reply.AddReplyRequestBody;
 import am.highapps.mvptest.data.entity.reply.AddReportResponseData;
 import am.highapps.mvptest.data.entity.reply.Reply;
 import am.highapps.mvptest.data.entity.report.AddReportRequestBody;
-import am.highapps.mvptest.data.entity.signin.TokenResponseData;
 import am.highapps.mvptest.data.entity.topic.TopicData;
 import am.highapps.mvptest.data.repository.MVPTestDataSource;
 import am.highapps.mvptest.ui.dialog.ReportBottomSheetFragment;
@@ -28,7 +27,7 @@ import static am.highapps.mvptest.data.api.ApiFactory.TOPIC_ID;
 
 public class MainFragmentPresenterImpl implements MainFragmentContract.MainFragmentPresenter {
 
-    private static final String TAG = "LoginPresenterImpl";
+    private static final String TAG = "SignInPresenterImpl";
 
     private MVPTestDataSource mvpTestDataSource;
     private NetworkUtil networkUtil;
@@ -94,60 +93,113 @@ public class MainFragmentPresenterImpl implements MainFragmentContract.MainFragm
     }
 
     @Override
-    public void voteComment(int commentId, int pos) {
-        Disposable disposable = mvpTestDataSource.makeCommentHelpful(commentId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(subscribe -> {
-                    if (!networkUtil.isConnected()) {
-                        mainFragmentView.hideProgress();
-                        mainFragmentView.showMessage(Constant.Error.NO_NETWORK);
-                    }
-                })
-                .subscribe(makeCommentHelpfulResponseEntity -> {
-                            if (makeCommentHelpfulResponseEntity.isSuccess()) {
-                                mainFragmentView.changeVoteCount(commentId, pos, makeCommentHelpfulResponseEntity.getData());
-                            } else {
-                                mainFragmentView.hideProgress();
-                                mainFragmentView.showMessage(makeCommentHelpfulResponseEntity.getMessage());
-                            }
-                        },
-                        error -> {
+    public void voteComment(int commentId, int pos, boolean currentUserVote) {
+        Disposable disposable ;
+
+        if(currentUserVote){
+            disposable = mvpTestDataSource.removeCommentHelpful(commentId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(subscribe -> {
+                        if (!networkUtil.isConnected()) {
                             mainFragmentView.hideProgress();
-                            mainFragmentView.showMessage(ExcUtil.readError(error));
+                            mainFragmentView.showMessage(Constant.Error.NO_NETWORK);
                         }
-                );
+                    })
+                    .subscribe(removeCommentHelpfulResponseEntity -> {
+                                if (removeCommentHelpfulResponseEntity.isSuccess()) {
+                                    mainFragmentView.changeVoteCount(commentId, pos, removeCommentHelpfulResponseEntity.getData());
+                                } else {
+                                    mainFragmentView.hideProgress();
+                                    mainFragmentView.showMessage(removeCommentHelpfulResponseEntity.getMessage());
+                                }
+                            },
+                            error -> {
+                                mainFragmentView.hideProgress();
+                                mainFragmentView.showMessage(ExcUtil.readError(error));
+                            }
+                    );
+
+        }else {
+            disposable = mvpTestDataSource.makeCommentHelpful(commentId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(subscribe -> {
+                        if (!networkUtil.isConnected()) {
+                            mainFragmentView.hideProgress();
+                            mainFragmentView.showMessage(Constant.Error.NO_NETWORK);
+                        }
+                    })
+                    .subscribe(makeCommentHelpfulResponseEntity -> {
+                                if (makeCommentHelpfulResponseEntity.isSuccess()) {
+                                    mainFragmentView.changeVoteCount(commentId, pos, makeCommentHelpfulResponseEntity.getData());
+                                } else {
+                                    mainFragmentView.hideProgress();
+                                    mainFragmentView.showMessage(makeCommentHelpfulResponseEntity.getMessage());
+                                }
+                            },
+                            error -> {
+                                mainFragmentView.hideProgress();
+                                mainFragmentView.showMessage(ExcUtil.readError(error));
+                            }
+                    );
+        }
 
 
         compositeDisposable.add(disposable);
     }
 
     @Override
-    public void voteReply(int replyId, int pos) {
+    public void voteReply(int replyId, int pos, boolean currentUserVote) {
+        Disposable disposable;
 
-        Disposable disposable = mvpTestDataSource.makeReplyHelpful(replyId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(subscribe -> {
-                    if (!networkUtil.isConnected()) {
-                        mainFragmentView.hideProgress();
-                        mainFragmentView.showMessage(Constant.Error.NO_NETWORK);
-                    }
-                })
-                .subscribe(makeReplyHelpfulResponseEntity -> {
-                            if (makeReplyHelpfulResponseEntity.isSuccess()) {
-                                mainFragmentView.changeVoteCount(replyId, pos, makeReplyHelpfulResponseEntity.getData());
-                            } else {
-                                mainFragmentView.hideProgress();
-                                mainFragmentView.showMessage(makeReplyHelpfulResponseEntity.getMessage());
-                            }
-                        },
-                        error -> {
+        if(currentUserVote){
+            disposable = mvpTestDataSource.removeReplyHelpful(replyId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(subscribe -> {
+                        if (!networkUtil.isConnected()) {
                             mainFragmentView.hideProgress();
-                            mainFragmentView.showMessage(ExcUtil.readError(error));
+                            mainFragmentView.showMessage(Constant.Error.NO_NETWORK);
                         }
-                );
-
+                    })
+                    .subscribe(removeReplyHelpfulResponseEntity -> {
+                                if (removeReplyHelpfulResponseEntity.isSuccess()) {
+                                    mainFragmentView.changeVoteCount(replyId, pos, removeReplyHelpfulResponseEntity.getData());
+                                } else {
+                                    mainFragmentView.hideProgress();
+                                    mainFragmentView.showMessage(removeReplyHelpfulResponseEntity.getMessage());
+                                }
+                            },
+                            error -> {
+                                mainFragmentView.hideProgress();
+                                mainFragmentView.showMessage(ExcUtil.readError(error));
+                            }
+                    );
+        }else {
+            disposable = mvpTestDataSource.makeReplyHelpful(replyId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(subscribe -> {
+                        if (!networkUtil.isConnected()) {
+                            mainFragmentView.hideProgress();
+                            mainFragmentView.showMessage(Constant.Error.NO_NETWORK);
+                        }
+                    })
+                    .subscribe(makeReplyHelpfulResponseEntity -> {
+                                if (makeReplyHelpfulResponseEntity.isSuccess()) {
+                                    mainFragmentView.changeVoteCount(replyId, pos, makeReplyHelpfulResponseEntity.getData());
+                                } else {
+                                    mainFragmentView.hideProgress();
+                                    mainFragmentView.showMessage(makeReplyHelpfulResponseEntity.getMessage());
+                                }
+                            },
+                            error -> {
+                                mainFragmentView.hideProgress();
+                                mainFragmentView.showMessage(ExcUtil.readError(error));
+                            }
+                    );
+        }
 
         compositeDisposable.add(disposable);
     }

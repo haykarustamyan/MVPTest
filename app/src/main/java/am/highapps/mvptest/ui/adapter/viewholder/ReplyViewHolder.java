@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import am.highapps.mvptest.R;
-import am.highapps.mvptest.data.entity.comment.CommentContent;
 import am.highapps.mvptest.data.entity.reply.Reply;
 import am.highapps.mvptest.ui.adapter.RecyclerAdapter;
 
@@ -28,9 +27,10 @@ public class ReplyViewHolder extends RecyclerView.ViewHolder implements View.OnC
     private TextView replyTv;
     private ImageView dotesMenuIv;
 
-    private Reply reply;
     private RecyclerAdapter.OnReplyVoteClickListener onReplyVoteClickListener;
     private RecyclerAdapter.OnReplyDotesClickListener onReplyDotesClickListener;
+
+    private Reply reply;
     private int pos;
 
     public ReplyViewHolder(View view, RecyclerAdapter.OnReplyVoteClickListener onReplyVoteClickListener,
@@ -89,12 +89,12 @@ public class ReplyViewHolder extends RecyclerView.ViewHolder implements View.OnC
         switch (view.getId()) {
             case R.id.tv_votes_count:
                 if (onReplyVoteClickListener != null) {
-                    onReplyVoteClickListener.onReplyVoteClick(reply.getId(), pos);
+                    onReplyVoteClickListener.onReplyVoteClick(reply.getId(), pos, reply.isCurrentUserVote());
                 }
                 break;
             case R.id.iv_dotes_menu:
                 if (onReplyDotesClickListener != null) {
-                    onReplyDotesClickListener.onReplyDotesClick(reply.getId(), pos);
+                    onReplyDotesClickListener.onReplyDotesClick(reply.getId(), pos, reply.isCurrentUserVote());
                 }
                 break;
         }

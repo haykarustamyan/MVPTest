@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorWhite"
-        tools:context=".ui.login.LoginActivity">
+        tools:context=".ui.signin.SignInActivity">
 
         <TextView
             android:id="@+id/tv_sign_in_prompt"

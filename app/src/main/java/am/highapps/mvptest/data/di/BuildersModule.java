@@ -1,9 +1,9 @@
 package am.highapps.mvptest.data.di;
 
 
-import am.highapps.mvptest.data.di.login.LoginModule;
+import am.highapps.mvptest.data.di.signin.SignInModule;
 import am.highapps.mvptest.data.di.main.MainModule;
-import am.highapps.mvptest.ui.login.LoginActivity;
+import am.highapps.mvptest.ui.signin.SignInActivity;
 import am.highapps.mvptest.ui.main.MainActivity;
 import am.highapps.mvptest.ui.main.MainFragmentActions;
 import dagger.Module;
@@ -13,8 +13,8 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class BuildersModule {
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = LoginModule.class)
-    abstract LoginActivity bindLoginActivity();
+    @ContributesAndroidInjector(modules = SignInModule.class)
+    abstract SignInActivity bindSignInActivity();
 
     @ActivityScope
     @ContributesAndroidInjector

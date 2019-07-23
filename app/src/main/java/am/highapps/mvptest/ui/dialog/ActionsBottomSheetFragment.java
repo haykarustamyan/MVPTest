@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import am.highapps.mvptest.R;
 import am.highapps.mvptest.util.ActivityUtil;
 
+import static am.highapps.mvptest.util.Constant.Argument.ARGUMENT_IS_VOTE;
 import static am.highapps.mvptest.util.Constant.Argument.ARGUMENT_TYPE_ID;
 import static am.highapps.mvptest.util.Constant.Argument.ARGUMENT_DIALOG_TYPE;
 import static am.highapps.mvptest.util.Constant.Argument.ARGUMENT_POS;
@@ -29,18 +30,19 @@ public class ActionsBottomSheetFragment extends BottomSheetDialogFragment implem
     private TextView reportTv;
     private View divider;
 
-
     private DialogType dialogType;
     private int typeId;
     private int pos;
+    private boolean isVote;
 
-    public static ActionsBottomSheetFragment getInstance(DialogType dialogType, int typeId, int pos) {
+    public static ActionsBottomSheetFragment getInstance(DialogType dialogType, int typeId, int pos, boolean isCurrentUserVote) {
 
         ActionsBottomSheetFragment frag = new ActionsBottomSheetFragment();
         Bundle args = new Bundle();
         args.putString(ARGUMENT_DIALOG_TYPE, String.valueOf(dialogType));
         args.putInt(ARGUMENT_TYPE_ID, typeId);
         args.putInt(ARGUMENT_POS, pos);
+        args.putBoolean(ARGUMENT_IS_VOTE, isCurrentUserVote);
         frag.setArguments(args);
         return frag;
     }
@@ -70,7 +72,6 @@ public class ActionsBottomSheetFragment extends BottomSheetDialogFragment implem
         initFields();
         setListeners();
 
-
         return view;
     }
 
@@ -80,6 +81,7 @@ public class ActionsBottomSheetFragment extends BottomSheetDialogFragment implem
             dialogType = ActionsBottomSheetFragment.DialogType.valueOf(arguments.getString(ARGUMENT_DIALOG_TYPE));
             typeId = arguments.getInt(ARGUMENT_TYPE_ID);
             pos = arguments.getInt(ARGUMENT_POS);
+            isVote = arguments.getBoolean(ARGUMENT_IS_VOTE);
         }
 
     }
@@ -111,17 +113,12 @@ public class ActionsBottomSheetFragment extends BottomSheetDialogFragment implem
 
     }
 
-
-    public void setActionsBottomSheetFragmentInteractionListener(ActionsBottomSheetFragmentInteractionListener actionsBottomSheetFragmentInteractionListener) {
-        this.actionsBottomSheetFragmentInteractionListener = actionsBottomSheetFragmentInteractionListener;
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_helpful_answer:
                 if (actionsBottomSheetFragmentInteractionListener != null) {
-                    actionsBottomSheetFragmentInteractionListener.onHelpfulAnswerClick(dialogType, typeId, pos);
+                    actionsBottomSheetFragmentInteractionListener.onHelpfulAnswerClick(dialogType, typeId, pos, isVote);
                 }
                 dismiss();
                 break;
@@ -141,8 +138,12 @@ public class ActionsBottomSheetFragment extends BottomSheetDialogFragment implem
         }
     }
 
+    public void setActionsBottomSheetFragmentInteractionListener(ActionsBottomSheetFragmentInteractionListener actionsBottomSheetFragmentInteractionListener) {
+        this.actionsBottomSheetFragmentInteractionListener = actionsBottomSheetFragmentInteractionListener;
+    }
+
     public interface ActionsBottomSheetFragmentInteractionListener {
-        void onHelpfulAnswerClick(ActionsBottomSheetFragment.DialogType dialogType, int typeId, int pos);
+        void onHelpfulAnswerClick(DialogType dialogType, int typeId, int pos, boolean isVote);
 
         void onReplyClick(int typeId, int pos);
 

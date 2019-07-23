@@ -18,13 +18,11 @@ public interface MainFragmentContract {
 
         void getTopicComments(int id);
 
-        void onDestroy();
-
         void addComment(String comment);
 
-        void voteComment(int commentId, int pos);
+        void voteComment(int commentId, int pos, boolean currentUserVote);
 
-        void voteReply(int id, int pos);
+        void voteReply(int id, int pos, boolean isVote);
 
         void addReply(String comment, int commentId, int pos);
 
@@ -35,7 +33,7 @@ public interface MainFragmentContract {
 
         void showTypingDialog(TypingDialogFragment.DialogType dialogType, int commentId, int pos);
 
-        void showActionsBottomFragment(ActionsBottomSheetFragment.DialogType dialogType, int typeId, int pos);
+        void showActionsBottomFragment(ActionsBottomSheetFragment.DialogType dialogType, int typeId, int pos, boolean isCurrentUserVote);
 
         void showReportBottomFragment(ReportBottomSheetFragment.DialogType dialogType, int typeId, int pos);
 
@@ -47,7 +45,7 @@ public interface MainFragmentContract {
 
         void addComment(CommentContent commentContent);
 
-        void changeVoteCount(int id, int pos, int data);
+        void changeVoteCount(int typeId, int pos, int data);
 
         void addCommentReply(Reply reply, int commentId, int pos);
     }

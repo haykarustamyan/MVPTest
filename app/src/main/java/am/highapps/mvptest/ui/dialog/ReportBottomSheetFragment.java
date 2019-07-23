@@ -45,7 +45,6 @@ public class ReportBottomSheetFragment extends BottomSheetDialogFragment impleme
     private String reportText;
 
     public static ReportBottomSheetFragment getInstance(DialogType dialogType, int typeId, int pos) {
-
         ReportBottomSheetFragment frag = new ReportBottomSheetFragment();
         Bundle args = new Bundle();
         args.putString(ARGUMENT_DIALOG_TYPE, String.valueOf(dialogType));
@@ -79,7 +78,6 @@ public class ReportBottomSheetFragment extends BottomSheetDialogFragment impleme
         findViews(view);
         initFields();
         setListeners();
-
 
         return view;
     }
@@ -120,10 +118,6 @@ public class ReportBottomSheetFragment extends BottomSheetDialogFragment impleme
     }
 
 
-    public void setReportBottomSheetFragmentInteractionListener(ReportBottomSheetFragmentInteractionListener reportBottomSheetFragmentInteractionListener) {
-        this.reportBottomSheetFragmentInteractionListener = reportBottomSheetFragmentInteractionListener;
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -157,8 +151,9 @@ public class ReportBottomSheetFragment extends BottomSheetDialogFragment impleme
             case R.id.tv_do_report:
                 if (reportBottomSheetFragmentInteractionListener != null) {
                     reportBottomSheetFragmentInteractionListener.onDoReportClick(TextUtils.isEmpty(reportText) ? reportTextEt.getText().toString() : reportText,
-                            dialogType,typeId,pos);
+                            dialogType, typeId, pos);
                 }
+
                 dismiss();
                 break;
             case R.id.tv_cancel:
@@ -166,6 +161,10 @@ public class ReportBottomSheetFragment extends BottomSheetDialogFragment impleme
                 break;
             default:
         }
+    }
+
+    public void setReportBottomSheetFragmentInteractionListener(ReportBottomSheetFragmentInteractionListener reportBottomSheetFragmentInteractionListener) {
+        this.reportBottomSheetFragmentInteractionListener = reportBottomSheetFragmentInteractionListener;
     }
 
     public interface ReportBottomSheetFragmentInteractionListener {

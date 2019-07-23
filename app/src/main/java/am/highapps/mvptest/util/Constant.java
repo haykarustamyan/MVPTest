@@ -11,13 +11,13 @@ public class Constant {
     }
 
     public static class Action {
-        public static final String ACTION_UPLOAD = "ACTION_UPLOAD";
     }
 
     public static class Argument {
         public static final String ARGUMENT_DIALOG_TYPE = "ARGUMENT_DIALOG_TYPE";
         public static final String ARGUMENT_TYPE_ID = "ARGUMENT_TYPE_ID";
         public static final String ARGUMENT_POS = "ARGUMENT_POS";
+        public static final String ARGUMENT_IS_VOTE = "ARGUMENT_IS_VOTE";
     }
 
     public class Extra {

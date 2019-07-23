@@ -18,7 +18,6 @@ import static am.highapps.mvptest.util.Constant.Pref.PREF_USER_TOKEN;
 @Module
 public class NetworkModule {
 
-
     @Singleton
     @Provides
     NetworkUtil provideNetworkUtil(Context context) {
@@ -44,9 +43,6 @@ public class NetworkModule {
         return okhttpClient;
     }
 
-
-
-
     @Provides
     @Named("logging")
     HttpLoggingInterceptor provideLoggingInterceptor() {
@@ -54,6 +50,5 @@ public class NetworkModule {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }
-
 
 }

@@ -9,9 +9,11 @@ import am.highapps.mvptest.data.entity.comment.CommentRequestBody;
 import am.highapps.mvptest.data.entity.comment.CommentsResponseEntity;
 import am.highapps.mvptest.data.entity.comment.MakeCommentHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.comment.MakeReplyHelpfulResponseEntity;
+import am.highapps.mvptest.data.entity.comment.RemoveCommentHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.reply.AddReplyResponseEntity;
 import am.highapps.mvptest.data.entity.reply.AddReplyRequestBody;
 import am.highapps.mvptest.data.entity.reply.AddReportResponseEntity;
+import am.highapps.mvptest.data.entity.reply.RemoveReplyHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.report.AddReportRequestBody;
 import am.highapps.mvptest.data.entity.signin.SignInResponseEntity;
 import am.highapps.mvptest.data.entity.signin.UserRequestBody;
@@ -66,6 +68,16 @@ public class MVPTestRemoteDataSource implements MVPTestDataSource {
     @Override
     public Observable<AddReportResponseEntity> addReport(AddReportRequestBody addReportRequestBody) {
         return mvpTestAPI.addReport(addReportRequestBody);
+    }
+
+    @Override
+    public Observable<RemoveCommentHelpfulResponseEntity> removeCommentHelpful(int commentId) {
+        return mvpTestAPI.removeCommentHelpful(commentId);
+    }
+
+    @Override
+    public Observable<RemoveReplyHelpfulResponseEntity> removeReplyHelpful(int replyId) {
+        return mvpTestAPI.removeReplyHelpful(replyId);
     }
 
 

@@ -93,7 +93,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
         switch (view.getId()) {
             case R.id.tv_votes_count:
                 if (onCommentVoteClickListener != null) {
-                    onCommentVoteClickListener.onCommentVoteClick(commentContent.getId(), pos);
+                    onCommentVoteClickListener.onCommentVoteClick(commentContent.getId(), pos, commentContent.isCurrentUserVote());
                 }
                 break;
 
@@ -104,7 +104,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder implements View.O
                 break;
             case R.id.iv_dotes_menu:
                 if (onCommentDotesClickListener != null) {
-                    onCommentDotesClickListener.onCommentDotesClick(commentContent.getId(), pos);
+                    onCommentDotesClickListener.onCommentDotesClick(commentContent.getId(), pos, commentContent.isCurrentUserVote());
                 }
                 break;
         }

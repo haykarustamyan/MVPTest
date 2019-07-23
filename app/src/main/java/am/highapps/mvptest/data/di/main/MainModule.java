@@ -1,6 +1,5 @@
 package am.highapps.mvptest.data.di.main;
 
-
 import am.highapps.mvptest.data.di.FragmentScope;
 import am.highapps.mvptest.ui.main.MainFragmentActions;
 import am.highapps.mvptest.ui.main.MainFragmentContract;

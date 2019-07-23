@@ -1,14 +1,14 @@
-package am.highapps.mvptest.data.entity.reply;
+package am.highapps.mvptest.data.entity.comment;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AddReplyResponseEntity {
+public class RemoveCommentHelpfulResponseEntity {
 
     @SerializedName("success")
     private boolean success;
 
     @SerializedName("data")
-    private Reply data;
+    private int data;
 
     @SerializedName("message")
     private String message;
@@ -21,11 +21,11 @@ public class AddReplyResponseEntity {
         this.success = success;
     }
 
-    public Reply getData() {
+    public int getData() {
         return data;
     }
 
-    public void setData(Reply data) {
+    public void setData(int data) {
         this.data = data;
     }
 
@@ -36,5 +36,4 @@ public class AddReplyResponseEntity {
     public void setMessage(String message) {
         this.message = message;
     }
-
 }

@@ -5,9 +5,11 @@ import am.highapps.mvptest.data.entity.comment.CommentRequestBody;
 import am.highapps.mvptest.data.entity.comment.CommentsResponseEntity;
 import am.highapps.mvptest.data.entity.comment.MakeCommentHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.comment.MakeReplyHelpfulResponseEntity;
+import am.highapps.mvptest.data.entity.comment.RemoveCommentHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.reply.AddReplyResponseEntity;
 import am.highapps.mvptest.data.entity.reply.AddReplyRequestBody;
 import am.highapps.mvptest.data.entity.reply.AddReportResponseEntity;
+import am.highapps.mvptest.data.entity.reply.RemoveReplyHelpfulResponseEntity;
 import am.highapps.mvptest.data.entity.report.AddReportRequestBody;
 import am.highapps.mvptest.data.entity.signin.SignInResponseEntity;
 import am.highapps.mvptest.data.entity.signin.UserRequestBody;
@@ -21,7 +23,7 @@ public interface MVPTestDataSource {
 
     Observable<TopicResponseEntity> getTopicById(int id);
 
-    Observable<CommentsResponseEntity> getTopicComments(int id,int page,int size);
+    Observable<CommentsResponseEntity> getTopicComments(int id, int page, int size);
 
     Observable<AddCommentResponseEntity> addComment(CommentRequestBody commentRequestBody);
 
@@ -32,4 +34,8 @@ public interface MVPTestDataSource {
     Observable<AddReplyResponseEntity> addReply(AddReplyRequestBody addReplyRequestBody);
 
     Observable<AddReportResponseEntity> addReport(AddReportRequestBody addReportRequestBody);
+
+    Observable<RemoveCommentHelpfulResponseEntity> removeCommentHelpful(int commentId);
+
+    Observable<RemoveReplyHelpfulResponseEntity> removeReplyHelpful(int replyId);
 }

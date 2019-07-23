@@ -1,6 +1,5 @@
 package am.highapps.mvptest.base;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,17 +16,8 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 public abstract class BaseActivity extends DaggerAppCompatActivity {
 
-//    @Inject
-//    DispatchingAndroidInjector<Fragment> mDispatchingAndroidInjector;
-
-//    @Override
-//    public AndroidInjector<Fragment> supportFragmentInjector() {
-//        return mDispatchingAndroidInjector;
-//    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
     }
 

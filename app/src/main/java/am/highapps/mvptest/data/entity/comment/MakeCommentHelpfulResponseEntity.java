@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class MakeCommentHelpfulResponseEntity {
 
-
     @SerializedName("success")
     private boolean success;
 

@@ -1,4 +1,4 @@
-package am.highapps.mvptest.ui.login;
+package am.highapps.mvptest.ui.signin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import am.highapps.mvptest.base.BaseActivity;
 import am.highapps.mvptest.ui.main.MainActivity;
 import am.highapps.mvptest.util.ActivityUtil;
 
-public class LoginActivity extends BaseActivity implements LoginContract.LoginView, View.OnClickListener {
+public class SignInActivity extends BaseActivity implements SignInContract.SignInView, View.OnClickListener {
 
     private ProgressBar progressBar;
     private EditText username;
@@ -23,7 +23,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
     private Button signInBtn;
 
     @Inject
-    LoginContract.LoginPresenter presenter;
+    SignInContract.SignInPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
         if (presenter.isUserAuthDone()) {
             navigateToMain();
         }
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signin);
         findViews();
         setListeners();
     }
@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
     }
 
     @Override
-    public void setPresenter(LoginContract.LoginPresenter presenter) {
+    public void setPresenter(SignInContract.SignInPresenter presenter) {
         this.presenter = presenter;
     }
 

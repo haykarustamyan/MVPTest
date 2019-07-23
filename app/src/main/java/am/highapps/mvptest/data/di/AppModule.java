@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static am.highapps.mvptest.data.api.ApiFactory.Url.BASE_URL;
 
-
 @Module
 public class AppModule {
 
@@ -39,7 +38,6 @@ public class AppModule {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-
     @Singleton
     @Provides
     MVPTestDataSource provideMvpTestRemoteDataSource(MVPTestAPI mvpTestAPI) {
@@ -47,22 +45,8 @@ public class AppModule {
     }
 
     @Provides
-    CompositeDisposable bindsLoginCompositeDisposable() {
+    CompositeDisposable provideSignInCompositeDisposable() {
         return new CompositeDisposable();
     }
-
-
-//    @Singleton
-//    @Provides
-//    GitHubLocalDataSource provideGitHubLocalDataSource() {
-//        return new GitHubLocalDataSource();
-//    }
-//
-//    @Singleton
-//    @Provides
-//    GitHubDataSource provideGitHubRepository(GitHubLocalDataSource gitHubLocalDataSource,
-//                                             MVPTestRemoteDataSource gitHubRemoteDataSource) {
-//        return new GitHubRepository(gitHubLocalDataSource, gitHubRemoteDataSource);
-//    }
 
 }

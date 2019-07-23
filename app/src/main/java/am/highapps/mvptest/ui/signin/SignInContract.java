@@ -1,20 +1,19 @@
-package am.highapps.mvptest.ui.login;
+package am.highapps.mvptest.ui.signin;
 
 import am.highapps.mvptest.base.BasePresenter;
 import am.highapps.mvptest.base.BaseView;
 
-public interface LoginContract {
+public interface SignInContract {
 
-    interface LoginPresenter extends BasePresenter {
+    interface SignInPresenter extends BasePresenter {
 
         boolean isUserAuthDone();
 
-        void validateCredentials(String username, String password);
+        void validateCredentials(String id, String password);
 
-        void onDestroy();
     }
 
-    interface LoginView extends BaseView<LoginPresenter> {
+    interface SignInView extends BaseView<SignInPresenter> {
 
         void setIdError();
 

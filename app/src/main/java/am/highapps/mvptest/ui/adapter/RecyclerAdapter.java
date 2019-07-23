@@ -1,6 +1,5 @@
 package am.highapps.mvptest.ui.adapter;
 
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +37,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private TopicData topicData;
     private List<CommentContent> contentList;
-    private SparseArray<CommentContentItem> commentWithReplys;
+    private ArrayList<Item> allList;
 
 
     public RecyclerAdapter() {
         contentList = new ArrayList<>();
-        commentWithReplys = new SparseArray<>();
+        allList = new ArrayList<>();
     }
 
 
@@ -100,11 +99,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             break;
             case TYPE_COMMENT: {
-                ((CommentViewHolder) holder).bind((CommentContent) commentWithReplys.get(position).getItem(), position);
+                ((CommentViewHolder) holder).bind((CommentContent) contentList.get(allList.get(position).getCommentPos()), position);
             }
             break;
             case TYPE_REPLY: {
-                ((ReplyViewHolder) holder).bind((Reply) commentWithReplys.get(position).getItem(), position);
+                ((ReplyViewHolder) holder).bind((Reply) contentList.get(allList.get(position).getCommentPos())
+                        .getReplies().get(allList.get(position).getReplyPos()), position);
             }
             break;
         }
@@ -112,84 +112,92 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return commentWithReplys.size() + 1;
+        return allList.size();
     }
 
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return TYPE_TOPIC;
-        } else {
-            if (commentWithReplys.get(position).getItem() instanceof CommentContent) {
-                return TYPE_COMMENT;
-            } else {
-                return TYPE_REPLY;
-            }
-        }
+        return allList.get(position).getViewType();
     }
 
     public void setTopicData(TopicData topicData) {
         this.topicData = topicData;
+        allList.add(new Item(TYPE_TOPIC, -1, -1));
         notifyItemChanged(0);
     }
 
     public void setComments(List<CommentContent> contents) {
         if (contentList.size() == 0) {
+
             this.contentList.addAll(contents);
         }
+        this.allList.clear();
 
-        this.commentWithReplys.clear();
-
-        int index = 0;
+//        int index = 0;
+        allList.add(new Item(TYPE_TOPIC, -1, -1));
         for (CommentContent c : contentList) {
-            index++;
-            commentWithReplys.put(index, new CommentContentItem(index, c));
-            int replySize = c.getReplies() == null ? 0 : c.getReplies().size();
+//            index++;
+//            commentWithReplys.add(new CommentContentItem(index, c));
+            allList.add(new Item(TYPE_COMMENT, contentList.indexOf(c), -1));
+            List<Reply> replies = c.getReplies();
+            int replySize = replies == null ? 0 : c.getReplies().size();
             if (replySize > 0) {
-                for (Reply r : c.getReplies()) {
-                    index++;
-                    commentWithReplys.put(index, new CommentContentItem(index, r));
+                for (Reply r : replies) {
+//                    index++;
+//                    commentWithReplys.add(index, new CommentContentItem(index, r));
+                    allList.add(new Item(TYPE_REPLY, contentList.indexOf(c), replies.indexOf(r)));
                 }
             }
 
         }
 
-        notifyItemRangeChanged(1, commentWithReplys.size());
+        notifyDataSetChanged();
     }
 
 
     public void addComment(CommentContent commentContent) {
-        contentList.add(commentContent);
+        contentList.add(0, commentContent);
+//        allList.add(0, new Item(TYPE_COMMENT, contentList.indexOf(commentContent), -1));
+//        notifyItemInserted(0);
         setComments(contentList);
     }
 
     public void addCommentReply(Reply reply, int commentId, int pos) {
-        commentWithReplys.put(pos + 1, new CommentContentItem(pos + 1, reply));
+        CommentContent commentContent = contentList.get(allList.get(pos).getCommentPos());
+        commentContent.getReplies().add(reply);
+        int index = allList.indexOf(allList.get(pos));
+        allList.add(index + 1, new Item(TYPE_REPLY, contentList.indexOf(commentContent), commentContent.getReplies().indexOf(reply)));
+        notifyItemInserted(index);
     }
+
 
     public void changeVotes(int id, int pos, int data) {
 
-        if (commentWithReplys.get(pos).getItem() instanceof CommentContent) {
-            CommentContent commentContent = (CommentContent) commentWithReplys.get(pos).getItem();
-            commentContent.setHelpfulAnswersCount(commentContent.getHelpfulAnswersCount() + data);
-            commentWithReplys.put(pos, new CommentContentItem(pos, commentContent));
-        } else {
-            Reply reply = (Reply) commentWithReplys.get(pos).getItem();
-            reply.setHelpfulAnswersCount(reply.getHelpfulAnswersCount() + data);
-            commentWithReplys.put(pos, new CommentContentItem(pos, reply));
+        switch (allList.get(pos).getViewType()) {
+            case TYPE_COMMENT:
+                CommentContent commentContent = (CommentContent) contentList.get(allList.get(pos).getCommentPos());
+                commentContent.setCurrentUserVote(!commentContent.isCurrentUserVote());
+                commentContent.setHelpfulAnswersCount(commentContent.getHelpfulAnswersCount() + ((data == 0) ? -1 : 1));
+                break;
+            case TYPE_REPLY:
+                Reply reply = (Reply) contentList.get(allList.get(pos).getCommentPos()).getReplies().get(allList.get(pos).getReplyPos());
+                reply.setCurrentUserVote(!reply.isCurrentUserVote());
+                reply.setHelpfulAnswersCount(reply.getHelpfulAnswersCount() + ((data == 0) ? -1 : 1));
+                break;
         }
-
 
         notifyItemChanged(pos);
     }
 
 
-    public void setOnTypeCommentClickListener(OnTypeCommentClickListener onTypeCommentClickListener) {
+    public void setOnTypeCommentClickListener(OnTypeCommentClickListener
+                                                      onTypeCommentClickListener) {
         this.onTypeCommentClickListener = onTypeCommentClickListener;
     }
 
-    public void setOnCommentVoteClickListener(OnCommentVoteClickListener onCommentVoteClickListener) {
+    public void setOnCommentVoteClickListener(OnCommentVoteClickListener
+                                                      onCommentVoteClickListener) {
         this.onCommentVoteClickListener = onCommentVoteClickListener;
     }
 
@@ -197,15 +205,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.onReplyVoteClickListener = onReplyVoteClickListener;
     }
 
-    public void setOnCommentDotesClickListener(OnCommentDotesClickListener onCommentDotesClickListener) {
+    public void setOnCommentDotesClickListener(OnCommentDotesClickListener
+                                                       onCommentDotesClickListener) {
         this.onCommentDotesClickListener = onCommentDotesClickListener;
     }
 
-    public void setOnReplyDotesClickListener(OnReplyDotesClickListener onReplyDotesClickListener) {
+    public void setOnReplyDotesClickListener(OnReplyDotesClickListener
+                                                     onReplyDotesClickListener) {
         this.onReplyDotesClickListener = onReplyDotesClickListener;
     }
 
-    public void setOnCommentReplyClickListener(OnCommentReplyClickListener onCommentReplyClickListener) {
+    public void setOnCommentReplyClickListener(OnCommentReplyClickListener
+                                                       onCommentReplyClickListener) {
         this.onCommentReplyClickListener = onCommentReplyClickListener;
     }
 
@@ -216,19 +227,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     public interface OnCommentVoteClickListener {
-        void onCommentVoteClick(int id, int pos);
+        void onCommentVoteClick(int id, int pos, boolean currentUserVote);
     }
 
     public interface OnCommentDotesClickListener {
-        void onCommentDotesClick(int id, int pos);
+        void onCommentDotesClick(int id, int pos, boolean isCurrentUserVote);
     }
 
     public interface OnReplyVoteClickListener {
-        void onReplyVoteClick(int id, int pos);
+        void onReplyVoteClick(int id, int pos, boolean currentUserVote);
     }
 
     public interface OnReplyDotesClickListener {
-        void onReplyDotesClick(int id, int pos);
+        void onReplyDotesClick(int id, int pos, boolean isCurrentUserVote);
     }
 
     public interface OnCommentReplyClickListener {

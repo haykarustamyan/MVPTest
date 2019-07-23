@@ -107,8 +107,8 @@ public class MainFragmentActions extends BaseFragment implements MainFragmentCon
     }
 
     @Override
-    public void showActionsBottomFragment(ActionsBottomSheetFragment.DialogType dialogType, int typeId, int pos) {
-        ActionsBottomSheetFragment bottomSheet = ActionsBottomSheetFragment.getInstance(dialogType, typeId, pos);
+    public void showActionsBottomFragment(ActionsBottomSheetFragment.DialogType dialogType, int typeId, int pos, boolean isCurrentUserVote) {
+        ActionsBottomSheetFragment bottomSheet = ActionsBottomSheetFragment.getInstance(dialogType, typeId, pos, isCurrentUserVote);
         bottomSheet.setActionsBottomSheetFragmentInteractionListener(this);
         bottomSheet.show(getChildFragmentManager(), "fragment_bottom_menu");
     }
@@ -141,13 +141,13 @@ public class MainFragmentActions extends BaseFragment implements MainFragmentCon
     }
 
     @Override
-    public void changeVoteCount(int id, int pos, int data) {
-        recyclerAdapter.changeVotes(id, pos, data);
+    public void changeVoteCount(int typeId, int pos, int data) {
+        recyclerAdapter.changeVotes(typeId, pos, data);
     }
 
     @Override
     public void addCommentReply(Reply reply, int commentId, int pos) {
-        recyclerAdapter.addCommentReply(reply,commentId,pos);
+        recyclerAdapter.addCommentReply(reply, commentId, pos);
     }
 
     @Override
@@ -171,18 +171,24 @@ public class MainFragmentActions extends BaseFragment implements MainFragmentCon
     }
 
     @Override
-    public void onCommentVoteClick(int id, int pos) {
-        mMainFragmentPresenter.voteComment(id, pos);
+    public void onCommentVoteClick(int id, int pos, boolean currentUserVote) {
+        mMainFragmentPresenter.voteComment(id, pos, currentUserVote);
     }
 
     @Override
-    public void onHelpfulAnswerClick(ActionsBottomSheetFragment.DialogType dialogType, int typeId, int pos) {
+    public void onReplyVoteClick(int id, int pos, boolean currentUserVote) {
+        mMainFragmentPresenter.voteReply(id, pos, currentUserVote);
+    }
+
+
+    @Override
+    public void onHelpfulAnswerClick(ActionsBottomSheetFragment.DialogType dialogType, int typeId, int pos, boolean isVote) {
         switch (dialogType) {
             case COMMENT:
-                mMainFragmentPresenter.voteComment(typeId, pos);
+                mMainFragmentPresenter.voteComment(typeId, pos, isVote);
                 break;
             case REPLY:
-                mMainFragmentPresenter.voteReply(typeId, pos);
+                mMainFragmentPresenter.voteReply(typeId, pos, isVote);
                 break;
         }
     }
@@ -217,21 +223,16 @@ public class MainFragmentActions extends BaseFragment implements MainFragmentCon
         }
     }
 
+
     @Override
-    public void onReplyVoteClick(int id, int pos) {
-        mMainFragmentPresenter.voteReply(id, pos);
+    public void onCommentDotesClick(int id, int pos, boolean isCurrentUserVote) {
+        showActionsBottomFragment(ActionsBottomSheetFragment.DialogType.COMMENT, id, pos, isCurrentUserVote);
     }
 
     @Override
-    public void onCommentDotesClick(int id, int pos) {
-        showActionsBottomFragment(ActionsBottomSheetFragment.DialogType.COMMENT, id, pos);
+    public void onReplyDotesClick(int id, int pos, boolean isCurrentUserVote) {
+        showActionsBottomFragment(ActionsBottomSheetFragment.DialogType.REPLY, id, pos, isCurrentUserVote);
     }
-
-    @Override
-    public void onReplyDotesClick(int id, int pos) {
-        showActionsBottomFragment(ActionsBottomSheetFragment.DialogType.REPLY, id, pos);
-    }
-
 
     @Override
     public void onCommentReplyClick(int commentId, int pos) {

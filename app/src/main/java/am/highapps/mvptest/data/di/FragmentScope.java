@@ -1,6 +1,5 @@
 package am.highapps.mvptest.data.di;
 
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 

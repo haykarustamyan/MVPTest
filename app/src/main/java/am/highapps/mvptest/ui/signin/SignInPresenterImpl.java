@@ -1,4 +1,4 @@
-package am.highapps.mvptest.ui.login;
+package am.highapps.mvptest.ui.signin;
 
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -17,74 +17,74 @@ import io.reactivex.schedulers.Schedulers;
 
 import static am.highapps.mvptest.util.Constant.Pref.PREF_USER_TOKEN;
 
-public class LoginPresenterImpl implements LoginContract.LoginPresenter, LoginInteractor.OnLoginFinishedListener {
+public class SignInPresenterImpl implements SignInContract.SignInPresenter, SignInInteractor.OnSignInFinishedListener {
 
-    private static final String TAG = "LoginPresenterImpl";
+    private static final String TAG = SignInPresenterImpl.class.getSimpleName();
 
     private MVPTestDataSource mvpTestDataSource;
     private NetworkUtil networkUtil;
     private CompositeDisposable compositeDisposable;
-    private LoginContract.LoginView loginView;
-    private LoginInteractor loginInteractor;
+    private SignInContract.SignInView signInView;
+    private SignInInteractor signInInteractor;
 
     @Inject
     SharedPreferences sharedPreferences;
 
     @Inject
-    public LoginPresenterImpl(MVPTestDataSource mvpTestDataSource,
-                              NetworkUtil networkUtil,
-                              CompositeDisposable compositeDisposable,
-                              LoginInteractor loginInteractor,
-                              LoginContract.LoginView loginView) {
+    public SignInPresenterImpl(MVPTestDataSource mvpTestDataSource,
+                               NetworkUtil networkUtil,
+                               CompositeDisposable compositeDisposable,
+                               SignInInteractor signInInteractor,
+                               SignInContract.SignInView signInView) {
         this.mvpTestDataSource = mvpTestDataSource;
         this.networkUtil = networkUtil;
         this.compositeDisposable = compositeDisposable;
-        this.loginView = loginView;
-        this.loginInteractor = loginInteractor;
+        this.signInView = signInView;
+        this.signInInteractor = signInInteractor;
 
-        this.loginView.setPresenter(this);
+        this.signInView.setPresenter(this);
     }
 
     @Override
     public boolean isUserAuthDone() {
-        return sharedPreferences.getString(PREF_USER_TOKEN, null)!= null;
+        return sharedPreferences.getString(PREF_USER_TOKEN, null) != null;
     }
 
     @Override
-    public void validateCredentials(String username, String password) {
-        if (loginView != null) {
-            loginView.showProgress();
+    public void validateCredentials(String id, String password) {
+        if (signInView != null) {
+            signInView.showProgress();
         }
 
-        loginInteractor.login(username, password, this);
+        signInInteractor.signIn(id, password, this);
     }
 
     @Override
     public void onDestroy() {
         compositeDisposable.dispose();
-        loginView = null;
+        signInView = null;
     }
 
     @Override
-    public void onUsernameError() {
-        if (loginView != null) {
-            loginView.setIdError();
-            loginView.hideProgress();
+    public void onIdError() {
+        if (signInView != null) {
+            signInView.setIdError();
+            signInView.hideProgress();
         }
     }
 
     @Override
     public void onPasswordError() {
-        if (loginView != null) {
-            loginView.setPasswordError();
-            loginView.hideProgress();
+        if (signInView != null) {
+            signInView.setPasswordError();
+            signInView.hideProgress();
         }
     }
 
     @Override
-    public void onValid(String username, String password) {
-        if (loginView != null) {
-            signIn(username, password);
+    public void onValid(String id, String password) {
+        if (signInView != null) {
+            signIn(id, password);
         }
     }
 
@@ -95,8 +95,8 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter, LoginIn
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(subscribe -> {
                     if (!networkUtil.isConnected()) {
-                        loginView.hideProgress();
-                        loginView.showMessage(Constant.Error.NO_NETWORK);
+                        signInView.hideProgress();
+                        signInView.showMessage(Constant.Error.NO_NETWORK);
                     }
                 })
                 .subscribe(tokenData -> {
@@ -105,15 +105,15 @@ public class LoginPresenterImpl implements LoginContract.LoginPresenter, LoginIn
                                 sharedPreferences.edit().putString(PREF_USER_TOKEN, token).apply();
                                 Log.d(TAG, "token: " + token);
                                 Log.d(TAG, "shared token: " + sharedPreferences.getString(PREF_USER_TOKEN, null));
-                                loginView.navigateToMain();
+                                signInView.navigateToMain();
                             } else {
-                                loginView.hideProgress();
-                                loginView.showMessage(tokenData.getMessage());
+                                signInView.hideProgress();
+                                signInView.showMessage(tokenData.getMessage());
                             }
                         },
                         error -> {
-                            loginView.hideProgress();
-                            loginView.showMessage(ExcUtil.readError(error));
+                            signInView.hideProgress();
+                            signInView.showMessage(ExcUtil.readError(error));
                         }
                 );
         compositeDisposable.add(disposable);
